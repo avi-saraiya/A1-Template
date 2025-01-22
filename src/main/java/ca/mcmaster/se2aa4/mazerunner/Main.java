@@ -12,9 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("** Starting Maze Runner");
-        try {
-            System.out.println("**** Reading the maze from file " + args[0]);
-            BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+        if (args.length == 2 && "-i".equals(args[0])){
+            try {
+            System.out.println("**** Reading the maze from file " + args[1]);
+            BufferedReader reader = new BufferedReader(new FileReader(args[1]));
             String line;
             while ((line = reader.readLine()) != null) {
                 for (int idx = 0; idx < line.length(); idx++) {
@@ -26,8 +27,13 @@ public class Main {
                 }
                 System.out.print(System.lineSeparator());
             }
-        } catch(Exception e) {
+            } 
+            catch(Exception e) {
             System.err.println("/!\\ An error has occured /!\\");
+            }
+        }
+        else {
+            System.err.println("Not enough arguments");
         }
         System.out.println("**** Computing path");
         System.out.println("PATH NOT COMPUTED");
