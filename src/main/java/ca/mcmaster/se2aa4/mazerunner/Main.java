@@ -11,8 +11,8 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner");
-        if (args.length == 2 && "-i".equals(args[0])){
+        logger.info("** Starting Maze Runner"); // Changed this and all other print statements like this one to logger messages
+        if (args.length == 2 && "-i".equals(args[0])){ // Added a check for the -i flag
             try {
             logger.info("**** Reading the maze from file " + args[1]);
             BufferedReader reader = new BufferedReader(new FileReader(args[1]));
