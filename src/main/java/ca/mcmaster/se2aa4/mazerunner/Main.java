@@ -1,3 +1,4 @@
+// This program has been extended by Avi Saraiya, 24-01-25
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
@@ -13,22 +14,33 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
-        if (args.length == 2 && "-i".equals(args[0])) { // Checks for the -i flag
+        if (args.length > 1 && args.length < 5 && "-i".equals(args[0])) { // Checks for the -i flag
             String mazeFilePath = args[1];
             MazeLoader mazeLoader = new MazeLoader(mazeFilePath);
             try {
                 logger.info("**** Reading the maze from file " + mazeFilePath);
                 Maze maze = mazeLoader.loadMaze();
                 maze.displayMaze();
-                PathFinder pathFinder = new PathFinder(maze);
-                List<String> path = pathFinder.findPath(); // placeholder for the solution through the maze
+                SolutionFinder solutionFinder = new SolutionFinder(maze);
+                List<String> path = solutionFinder.findPath(); // placeholder for the solution through the maze
                 logger.info("**** Path found: " + path);
+                if (args.length >= 3 && "-p".equals(args[2])) { // Checks for the -p flag
+                    String userPath = args[3];
+                    SolutionValidator SolutionValidator = new SolutionValidator(maze);
+                    boolean isValid = SolutionValidator.validatePath(userPath); // Placeholder for actual validation logic
+                    if (isValid) {
+                        logger.info("User-provided path is valid.");
+                    } else {
+                        logger.info("User-provided path is invalid.");
+                    }
+                }
             } catch (Exception e) {
                 logger.error("/!\\ An error has occurred while loading the maze /!\\", e);
             }
         } else {
-            logger.error("Invalid arguments. Usage: -i <mazeFilePath>");
+            logger.error("Invalid arguments. Usage: -i <mazeFilePath> [-p <userPath>]");
         }
+
         logger.info("** End of MazeRunner");
     }
 }
@@ -54,7 +66,7 @@ class MazeLoader {
     }
 }
 
-// // The following class represents the maze in terms of 'WALL' and 'PATH'
+// The following class represents the maze in terms of 'WALL' and 'PATH'
 class Maze {
 
     private StringBuilder readableMaze;
@@ -87,11 +99,11 @@ class Maze {
 }
 
 // The following class will implement a pathfinding algorithm, and add the solution to a list and return it
-class PathFinder {
+class SolutionFinder {
 
     private Maze maze;
 
-    public PathFinder(Maze maze) {
+    public SolutionFinder(Maze maze) {
         this.maze = maze;
     }
 
@@ -102,5 +114,20 @@ class PathFinder {
         path.add("R");
         path.add("F");
         return path;
+    }
+}
+
+// The following class is a placeholder for validating the user-provided path
+class SolutionValidator {
+
+    private Maze maze;
+
+    public SolutionValidator(Maze maze) {
+        this.maze = maze;
+    }
+
+    public boolean validatePath(String userPath) {
+        // Placeholder logic for validating the path
+        return userPath != null && !userPath.isEmpty();
     }
 }
