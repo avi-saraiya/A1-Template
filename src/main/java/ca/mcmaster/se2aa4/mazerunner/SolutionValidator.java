@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-// The following class is a placeholder for validating the user-provided path
+// This class is a placeholder for validating the entered path
 class SolutionValidator {
 
     private Maze maze;
@@ -10,7 +10,7 @@ class SolutionValidator {
     }
 
     public boolean validatePath(String userPath) {
-        // Placeholder logic for validating the path
+        // Validating path logic will be added over here
         return userPath != null && !userPath.isEmpty();
     }
 }

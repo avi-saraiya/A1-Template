@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.List;
 
-// The following class will implement a pathfinding algorithm, and add the solution to a list and return it
+// The class will implement the pathfinding algorithm
 
 public class SolutionFinder {
     private MazeInterface maze;

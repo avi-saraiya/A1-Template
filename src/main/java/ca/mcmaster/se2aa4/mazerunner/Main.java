@@ -1,7 +1,6 @@
 // This program has been extended by Avi Saraiya, 24-01-25
 
 package ca.mcmaster.se2aa4.mazerunner;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
@@ -11,19 +10,17 @@ public class Main {
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
-
         if (args.length >= 2 && "-i".equals(args[0])) {
             String mazeFilePath = args[1];
             boolean validatePath = args.length == 4 && "-p".equals(args[2]);
-
             MazeLoader mazeLoader = new MazeLoader(mazeFilePath);
             try {
                 logger.info("**** Reading the maze from file " + mazeFilePath);
                 Maze maze = mazeLoader.loadMaze();
-                System.out.print(MazeDisplayer.format(maze));  // Printing the formatted maze
+                System.out.print(MazeDisplayer.format(maze));  // This is to print the maze in the "WALL" "PASS" form
 
-                // Placeholder for future pathfinding strategy
-                SolutionFinder solutionFinder = new SolutionFinder(maze, null);  // No strategy selected
+                // This is where the pathfinding strategy will go
+                SolutionFinder solutionFinder = new SolutionFinder(maze, null); //Null because no strategy selecte yet
                 List<String> path = solutionFinder.findPath();
                 logger.info("**** Path found: " + path);
 
