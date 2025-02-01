@@ -1,20 +1,24 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import java.util.List;
+
 // The following class will implement a pathfinding algorithm, and add the solution to a list and return it
-class SolutionFinder {
 
-    private Maze maze;
+public class SolutionFinder {
+    private MazeInterface maze;
+    private PathInterface pathInterface;
 
-    public SolutionFinder(Maze maze) {
+    public SolutionFinder(MazeInterface maze, PathInterface pathInterface) { // This is so that the program can now accept anything that implements the interfaces (like an object of the maze class etc)
         this.maze = maze;
+        this.pathInterface = pathInterface;
     }
 
     public List<String> findPath() {
-        // The additions to the list below are just placeholder examples for the MVP
-        List<String> path = new ArrayList<>();
-        path.add("L");
-        path.add("R");
-        path.add("F");
-        return path;
+        if (pathInterface != null) {
+            return pathInterface.findPath(maze);
+        } else {
+            // Placeholder for later when the pathfinding implementation is added
+            return "Add Pathfinding algorhithm";
+        }
     }
 }
