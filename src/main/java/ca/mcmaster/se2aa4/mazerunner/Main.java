@@ -1,37 +1,41 @@
 // This program has been extended by Avi Saraiya, 24-01-25
+
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.util.List;
 
 public class Main {
-
     private static Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
-        if (args.length > 1 && args.length < 5 && "-i".equals(args[0])) { // Checks for the -i flag
+
+        if (args.length >= 2 && "-i".equals(args[0])) {
             String mazeFilePath = args[1];
+            boolean validatePath = args.length == 4 && "-p".equals(args[2]);
+
             MazeLoader mazeLoader = new MazeLoader(mazeFilePath);
             try {
                 logger.info("**** Reading the maze from file " + mazeFilePath);
                 Maze maze = mazeLoader.loadMaze();
-                maze.displayMaze();
-                SolutionFinder solutionFinder = new SolutionFinder(maze);
-                List<String> path = solutionFinder.findPath(); // placeholder for the solution through the maze
+                System.out.print(MazeDisplayer.format(maze));  // Printing the formatted maze
+
+                // Placeholder for future pathfinding strategy
+                SolutionFinder solutionFinder = new SolutionFinder(maze, null);  // No strategy selected
+                List<String> path = solutionFinder.findPath();
                 logger.info("**** Path found: " + path);
-                if (args.length >= 3 && "-p".equals(args[2])) { // Checks for the -p flag
+
+                if (validatePath) {
                     String userPath = args[3];
-                    SolutionValidator SolutionValidator = new SolutionValidator(maze);
-                    boolean isValid = SolutionValidator.validatePath(userPath); // Placeholder for actual validation logic
-                    if (isValid) {
-                        logger.info("User-provided path is valid.");
-                    } else {
-                        logger.info("User-provided path is invalid.");
+                    SolutionValidator solutionValidator = new SolutionValidator(maze);
+                    boolean isValid = solutionValidator.validatePath(userPath);
+                    if (isValid){
+                        logger.info("Provided path is valid");
+                    }
+                    else{
+                        logger.info("Provided path is invalid");
                     }
                 }
             } catch (Exception e) {
@@ -44,10 +48,6 @@ public class Main {
         logger.info("** End of MazeRunner");
     }
 }
-
-
-
-
 
 
 
