@@ -30,8 +30,7 @@ public class Main {
                 logger.info("**** Path found: ");
                 OutputFormatter outputFormatter = new OutputFormatter();
                 StringBuilder output = outputFormatter.solFormat(path);
-                System.out.println(output);
-
+                StringBuilder factorizedOutput = outputFormatter.factorize(output);
             } catch (Exception e) {
                 logger.error("/!\\ An error has occurred while processing the maze /!\\", e);
             }
