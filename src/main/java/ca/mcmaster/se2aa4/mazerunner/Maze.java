@@ -7,14 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Maze implements MazeInterface {
-
-    private char[][] grid;
+    private char[][] grid; //2d representation of the maze
     private List<String> rows = new ArrayList<>();
 
+    // Not implemented in the final version
     @Override
     public void displayMaze() {
         for (String row : rows) {
-            System.out.println(row); // Displaying each row
+            System.out.println(row);
         }
     }
 
@@ -37,16 +37,10 @@ public class Maze implements MazeInterface {
             rowList.add(line);
         }
         reader.close();
-
-        // Convert rows to grid
         this.rows = rowList;
-        this.grid = new char[rowList.size()][rowList.get(0).length()];
-
-        // Initialize the grid with the maze data
-        for (int i = 0; i < rowList.size(); i++) {
+        this.grid = new char[rowList.size()][rowList.get(0).length()];// Converts rows to the grid
+        for (int i = 0; i < rowList.size(); i++) { // To initialize the grid with maze data
             this.grid[i] = rowList.get(i).toCharArray();
         }
     }
 }
-
-

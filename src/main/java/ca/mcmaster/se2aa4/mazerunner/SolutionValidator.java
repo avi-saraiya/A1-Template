@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 // This class is a placeholder for validating the entered path
 public class SolutionValidator {
     private Maze maze;
+    // This is from the viewer's refernce not the explorer's
     private static final int[][] DIRECTIONS = {
         {0, 1},  // Right
         {1, 0},  // Down
@@ -19,7 +20,7 @@ public class SolutionValidator {
         int rows = grid.length;
         int cols = grid[0].length;
 
-        // Find the starting position (first open space in the leftmost column)
+        //To find the starting position (first open space in the leftmost column)
         int row = -1, col = -1;
         for (int i = 0; i < rows; i++) {
             if (grid[i][0] == ' ') {
@@ -30,39 +31,39 @@ public class SolutionValidator {
         }
 
         if (row == -1 || col == -1) {
-            return false; // No valid start found
+            return false; // For potential future iterations that have to deal with mazes without entry points
         }
 
-        int dir = 0; // Start facing right
+        int dir = 0; // Facing right at the begininng
 
         for (int i = 0; i < path.length(); i++) {
             char move = path.charAt(i);
 
             switch (move) {
                 case 'F':
-                    // Move forward in the current direction
+                    // for going forward
                     row += DIRECTIONS[dir][0];
                     col += DIRECTIONS[dir][1];
 
-                    // Check if the new position is within bounds and not a wall
+                    // Checks for bounds
                     if (row < 0 || row >= rows || col < 0 || col >= cols || grid[row][col] == '#') {
-                        return false; // Invalid move
+                        return false; // Invalid becuase should not be able to go through a wall
                     }
                     break;
                 case 'L':
-                    // Turn left (counter-clockwise)
-                    dir = (dir + 3) % 4; // 90 degrees counter-clockwise
+                    // to turn left
+                    dir = (dir + 3) % 4; // For turning 90 deg (anticlockwise)
                     break;
                 case 'R':
                     // Turn right (clockwise)
-                    dir = (dir + 1) % 4; // 90 degrees clockwise
+                    dir = (dir + 1) % 4; // for turning 90 deg (clockwise)
                     break;
                 default:
-                    return false; // Invalid move
+                    return false; // No movement without direction
             }
         }
 
-        // Check if the end point is on the rightmost column (exit point)
+        // Checks for space at the edge (exit point)
         return col == cols - 1 && grid[row][col] == ' ';
     }
 }

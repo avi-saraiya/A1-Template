@@ -1,3 +1,5 @@
+// This program has been extended by Avi Saraiya, 24-01-25
+
 package ca.mcmaster.se2aa4.mazerunner;
 
 import org.apache.logging.log4j.LogManager;
@@ -5,56 +7,35 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
-
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner **");
-
-        if (args.length > 1 && "-i".equals(args[0])) { 
-            String mazeFilePath = args[1];
+        if (args.length > 1 && "-i".equals(args[0])) { // Checks for -i flag 
+            String mazeFilePath = args[1]; // uploads file from specified path
             MazeLoader mazeLoader = new MazeLoader(mazeFilePath);
-
             try {
-                logger.info("**** Reading the maze from file: " + mazeFilePath);
-                Maze maze = mazeLoader.loadMaze();  // Loads the maze directly
-                maze.displayMaze();
-
-                // Initialize pathfinding strategy
-                PathInterface pathFinder = new PathFinder();
-                SolutionFinder solutionFinder = new SolutionFinder(maze, pathFinder);
-
-                logger.info("**** Finding path through the maze...");
-                List<String> path = solutionFinder.findPath();
-                logger.info("**** Path found: ");
-                OutputFormatter outputFormatter = new OutputFormatter();
+                Maze maze = mazeLoader.loadMaze();  // Loads the maze
+                PathInterface pathFinder = new PathFinder(); // Implements the path finding algorithrm
+                SolutionFinder solutionFinder = new SolutionFinder(maze, pathFinder); // The SolutionFinder helps integrate the path finding algorithm with the maze
+                List<String> path = solutionFinder.findPath(); // List containint the directions to the end point
+                OutputFormatter outputFormatter = new OutputFormatter(); // Prints the canonical and factorized solutions
                 StringBuilder output = outputFormatter.solFormat(path);
                 StringBuilder factorizedOutput = outputFormatter.factorize(output);
-
-                // Check if the user has provided a path to validate
-                if (args.length > 3 && "-p".equals(args[2])) {
+                if (args.length > 3 && "-p".equals(args[2])) { // Looks for the -p flag
                 String userPath = args[3];
-
-                // Pass the Maze directly to the SolutionValidator
-                SolutionValidator validator = new SolutionValidator(maze);
-                boolean isValid = validator.validatePath(userPath);
-
+                SolutionValidator validator = new SolutionValidator(maze); // Checks entered path against maze to validate path
+                boolean isValid = validator.validatePath(userPath); 
                 if (isValid) {
-                    logger.info("The entered path is valid.");
+                    System.out.println("Entered path was valid");
                 } else {
-                    logger.info("The entered path is invalid.");
+                    System.out.println("Entered path was invalid");
                 }
                 }
             } catch (Exception e) {
-                logger.error("/!\\ An error has occurred while processing the maze /!\\", e);
+                System.out.println("An error has occurred while processing the maze");
             }
         } else {
-            logger.error("Invalid arguments. Usage: -i <mazeFilePath> [-p <userPath>]");
+            System.out.println("Invalid arguments. Usage: -i <mazeFilePath> [-p <userPath>]");
         }
-
-        logger.info("** End of Maze Runner **");
     }
 }
-
-// This program has been extended by Avi Saraiya, 24-01-25
 
 

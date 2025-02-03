@@ -1,4 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
+// Not implemented in the final version
 /*This class will display the maze in terms of 'WALL' and 'PASS'*/
 class MazeDisplayer {
     public static String format(Maze maze) {

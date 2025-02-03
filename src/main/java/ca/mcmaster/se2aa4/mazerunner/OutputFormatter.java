@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 import java.util.List;
 
 public class OutputFormatter{
+    // Formats the path through the maze according to the business logic (canonical form)
     public StringBuilder solFormat(List<String> stringList){
         String container = stringList.get(0);
         StringBuilder outputstr = new StringBuilder();
@@ -18,9 +19,10 @@ public class OutputFormatter{
         return outputstr;
     }
 
+    // Formats the path through the maze according to the business logic (factorized form)
     public StringBuilder factorize(StringBuilder input){
         String proxystr = input.toString();
-        String[] splitstr = proxystr.split("\\s+");
+        String[] splitstr = proxystr.split("\\s+");// Checks for space (regex)
         StringBuilder output = new StringBuilder();
         for (String element : splitstr){
             StringBuilder temp = new StringBuilder();
