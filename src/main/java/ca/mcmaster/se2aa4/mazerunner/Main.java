@@ -1,5 +1,3 @@
-// This program has been extended by Avi Saraiya, 24-01-25
-
 package ca.mcmaster.se2aa4.mazerunner;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +16,7 @@ public class Main {
 
             try {
                 logger.info("**** Reading the maze from file: " + mazeFilePath);
-                MazeInterface maze = mazeLoader.loadMaze();
+                Maze maze = mazeLoader.loadMaze();  // Loads the maze directly
                 maze.displayMaze();
 
                 // Initialize pathfinding strategy
@@ -31,17 +29,32 @@ public class Main {
                 OutputFormatter outputFormatter = new OutputFormatter();
                 StringBuilder output = outputFormatter.solFormat(path);
                 StringBuilder factorizedOutput = outputFormatter.factorize(output);
+
+                // Check if the user has provided a path to validate
+                if (args.length > 3 && "-p".equals(args[2])) {
+                String userPath = args[3];
+
+                // Pass the Maze directly to the SolutionValidator
+                SolutionValidator validator = new SolutionValidator(maze);
+                boolean isValid = validator.validatePath(userPath);
+
+                if (isValid) {
+                    logger.info("The entered path is valid.");
+                } else {
+                    logger.info("The entered path is invalid.");
+                }
+                }
             } catch (Exception e) {
                 logger.error("/!\\ An error has occurred while processing the maze /!\\", e);
             }
         } else {
-            logger.error("Invalid arguments. Usage: -i <mazeFilePath>");
+            logger.error("Invalid arguments. Usage: -i <mazeFilePath> [-p <userPath>]");
         }
 
         logger.info("** End of Maze Runner **");
     }
 }
 
-
+// This program has been extended by Avi Saraiya, 24-01-25
 
 
