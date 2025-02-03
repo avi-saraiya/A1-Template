@@ -5,10 +5,10 @@ class MazeDisplayer {
         StringBuilder readableMaze = new StringBuilder();
         for (String row : maze.getRows()) {
             for (char c : row.toCharArray()) {
-                if c == '#'{
+                if (c == '#'){
                     readableMaze.append("WALL ");
                 }
-                else if c == " "{
+                else{
                     readableMaze.append("PASS ");
                 }
             }
