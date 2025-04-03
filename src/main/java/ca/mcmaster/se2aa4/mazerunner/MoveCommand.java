@@ -9,7 +9,6 @@ public class MoveCommand implements Command {
 
     @Override
     public void execute() {
-        //pathFinder.moveForward();
-        System.out.println("Will add moveForward function defintion first");
+        pathFinder.moveForward();
     }
 }

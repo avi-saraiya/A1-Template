@@ -13,7 +13,7 @@ public class Main {
             MazeLoader mazeLoader = new MazeLoader(mazeFilePath);
             try {
                 Maze maze = mazeLoader.loadMaze();  // Loads the maze
-                PathInterface pathFinder = new PathFinder(); // Implements the path finding algorithrm
+                PathInterface pathFinder = new PathFinder(maze); // Implements the path finding algorithrm
                 SolutionFinder solutionFinder = new SolutionFinder(maze, pathFinder); // The SolutionFinder helps integrate the path finding algorithm with the maze
                 List<String> path = solutionFinder.findPath(); // List containint the directions to the end point
                 OutputFormatter outputFormatter = new OutputFormatter(); // Prints the canonical and factorized solutions
