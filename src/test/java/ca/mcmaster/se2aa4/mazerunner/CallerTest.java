@@ -14,4 +14,10 @@ public class CallerTest {
         caller.setCommand(moveCommand);
         caller.call();
     }
+
+    @Test
+    public void testCallerWithoutCommand() {
+        Caller caller = new Caller();
+        caller.call();
+    }
 }
