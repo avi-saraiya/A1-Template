@@ -8,25 +8,21 @@ import java.io.IOException;
 
 public class Maze implements MazeInterface {
 
-    private static Maze instance;  // Private static instance for Singleton
-    private char[][] grid;         // 2D representation of the maze
+    private static Maze instance;
+    private char[][] grid;         // 2D maze equivalent
     private List<String> rows = new ArrayList<>();
 
-    // Private constructor to prevent direct instantiation
     private Maze() {
     }
 
-    // Public static method to provide access to the instance
     public static Maze getInstance(String filePath) throws IOException {
         if (instance == null) {
-            // If the instance is null, load the maze and create the instance
             instance = new Maze();
-            instance.loadMazeFromFile(filePath); // Load maze data from the file
+            instance.loadMazeFromFile(filePath);
         }
-        return instance;  // Return the single instance
+        return instance;
     }
-
-    // Not implemented in the final version
+    // to print out the maze (not part of final output)
     @Override
     public void displayMaze() {
         for (String row : rows) {
@@ -55,7 +51,7 @@ public class Maze implements MazeInterface {
         reader.close();
         this.rows = rowList;
         this.grid = new char[rowList.size()][rowList.get(0).length()];  // Converts rows to the grid
-        for (int i = 0; i < rowList.size(); i++) { // To initialize the grid with maze data
+        for (int i = 0; i < rowList.size(); i++) {
             this.grid[i] = rowList.get(i).toCharArray();
         }
     }
